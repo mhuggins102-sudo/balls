@@ -1,0 +1,19 @@
+{
+  "name": "balls",
+  "version": "0.1.0",
+  "description": "Ball-Drop Bag Builder: a phone-first ball-drop board game with a bag-building economy. Vanilla JS, no build step.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "serve": "python3 -m http.server 8080",
+    "sim": "node sim/harness.js all",
+    "sim:dist": "node sim/harness.js dist",
+    "sim:perks": "node sim/harness.js perks",
+    "sim:bots": "node sim/harness.js bots",
+    "sim:determinism": "node sim/harness.js determinism",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
