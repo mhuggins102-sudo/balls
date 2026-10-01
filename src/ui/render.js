@@ -55,8 +55,9 @@ export class Renderer {
   computeTransform() {
     const b = this.board.bounds;
     const pad = 0.35;
+    const labelRoom = 0.75; // slot labels are drawn below the floor line
     const w = b.maxX - b.minX + 2 * pad;
-    const h = b.maxY - b.minY + 2 * pad;
+    const h = b.maxY - b.minY + 2 * pad + labelRoom;
     this.scale = Math.min(this.cssW / w, this.cssH / h);
     this.ox = this.cssW / 2;
     this.oy = (this.cssH - h * this.scale) / 2 + pad * this.scale;
@@ -113,9 +114,9 @@ export class Renderer {
         ctx.fillStyle = C.perkSlot;
         ctx.fillRect(sx + 1, sy, w - 2, h);
       }
-      // Value text.
+      // Value text, below the floor so landed balls never cover it.
       const cx = sx + w / 2;
-      const baseY = sy + h - fontPx * 0.9;
+      const baseY = sy + h + fontPx * 0.75;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       if (isPerk) {
@@ -130,7 +131,7 @@ export class Renderer {
         ctx.fillText(`$${value}`, cx, baseY);
         if (doubles) {
           ctx.font = `700 ${Math.round(fontPx * 0.7)}px system-ui, sans-serif`;
-          ctx.fillText(`×${Math.pow(2, doubles)}`, cx, baseY - fontPx * 1.05);
+          ctx.fillText(`×${Math.pow(2, doubles)}`, cx, sy + fontPx * 0.9 + (highlighted ? fontPx * 0.9 : 0));
         }
       }
       if (highlighted) {
